@@ -10,9 +10,9 @@ Hi, my name is Thuong Son Tung — aka nh0kt1g3r12. I'm a junior college student
 
 During my time in college, I’ve developed a strong passion for Digital Forensics and Incident Response. My goal is to become a SOC Analyst, Incident Responder, or Threat Hunter.
 
-I'm actively participating in various CTFs and hacking competitions with [f4n_n3r0](https://ctftime.org/team/281734), a team made up entirely of my classmates. We're currently ranked 3rd on the Vietnamese CTF scoreboard.
+I'm actively participating in various CTFs and hacking competitions with [f4n_n3r0](https://ctftime.org/team/281734), a team made up entirely of my classmates. We're currently ranked 3rd on the Vietnamese ctftime scoreboard.
 
-I’m currently seeking an internship opportunity in the U.S., as I’ve recently relocated to Anaheim. If any HR professionals are viewing this, please feel free to contact me using the information provided at the end of my portfolio. Thank you very much!
+I’m currently seeking an internship opportunity in the U.S., as I’ve recently relocated to Anaheim. If any HR professionals are viewing this, please feel free to contact me using the information provided in my portfolio. Thank you very much!
 
 ## 🏆 Achievements
 I Actively competes in CTFs with a focus on **Forensics**, **Malware Analysis**, **Steganography**, and **OSINT** challenges.
