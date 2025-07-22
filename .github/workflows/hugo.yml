@@ -9,6 +9,10 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:  # Thêm để tránh deploy đồng thời
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,9 +26,18 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+          fetch-depth: 0  # Cần thiết cho Hugo
+
+      - name: Setup Pages  # BỔ SUNG BƯỚC NÀY
+        id: pages
+        uses: actions/configure-pages@v3
 
       - name: Build
-        run: hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
+        run: |
+          hugo \
+            --gc \
+            --minify \
+            --baseURL "${{ steps.pages.outputs.base_url }}/"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -32,7 +45,7 @@ jobs:
           path: ./public
 
   deploy:
-    environment:  # Phần quan trọng khắc phục lỗi
+    environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
