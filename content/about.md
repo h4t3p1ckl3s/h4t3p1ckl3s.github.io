@@ -4,6 +4,7 @@ title: $whoami
 description: Details about me
 date: 2025-07-21T17:12:52+08:00
 lastmod: 2025-07-21T17:12:52+08:00
+draft: false
 ---
 
 Hi, my name is Thuong Son Tung — aka nh0kt1g3r12. I'm a junior college student majoring in Information Security at Posts and Telecommunications Institute of Technology, Ho Chi Minh City.

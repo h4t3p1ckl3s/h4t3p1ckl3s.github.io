@@ -2,7 +2,7 @@
 title: "TSC CTF Web Security challenges"
 description: "Writeups for web challenges"
 categories: ["Writeups"]
-tags: ["Web"]
+tags: ["Web", "Digital Forensics"]
 date: 2025-07-21
 draft: false
 cover: /images/posts_cover/tscctf.png

@@ -2,7 +2,7 @@
 title: "L3AKCTF Windows Memory Forensics"
 description: "The challenge was fun"
 categories: ["Writeups"]
-tags: ["Reverse","Digital Forensics"]
+tags: ["Reverse Engineering","Digital Forensics", "Malware Analysis"]
 date: 2025-07-21
 draft: false
 cover: /images/posts_cover/forensics.jpg
