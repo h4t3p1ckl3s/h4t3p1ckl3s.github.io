@@ -1,0 +1,3 @@
+[submodule "themes/hugo-theme-reimu"]
+	path = themes/hugo-theme-reimu
+	url = https://github.com/flowstone/hugo-theme-reimu.git
