@@ -77,7 +77,7 @@ Let's start dumping it out to investigate it.
 
 There we go there we go, a lil bit of red, , I'll load the DLL into IDA to start reverse engineering on it and to understand its behavior.
 
-```c=
+```c
 int sub_7FFED6511000()
 {
   HRSRC ResourceW; // rax
@@ -181,7 +181,7 @@ int sub_7FFED6511000()
 ```
 
 as you can see, this function is absolutely a **process injection** function using a shellcode embedded in the DLL's resources.
-```c=
+```c
 CreateProcessW(
                          L"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
                          0LL,
@@ -197,7 +197,7 @@ CreateProcessW(
 
 Create process `msedge.exe` with **SUSPENDED** status, `0x00000004` is `CREATE_SUSPENDED` flag, which means the process is created but its primary thread is not yet running, probally for shellcode injection.
 
-```c=
+```c
   {
     phModule = 0LL;
     LODWORD(ResourceW) = GetModuleHandleExW(4u, sub_7FFED6511000, &phModule);
@@ -233,7 +233,7 @@ Create process `msedge.exe` with **SUSPENDED** status, `0x00000004` is `CREATE_S
 Get current module using `GetModuleHandleExW()`, locate shellcode using `FindResourceW()` with `ID=0x65` and `TYPE=SHELL`. Then load shellcode using `LoadResource()`, allocated the memory for the shellcode by using `VirtualAlloc`, the loaded shellcode will be XOR with a 16-byte key `aX7qp9zlma2vtej`
 ![image](https://hackmd.io/_uploads/BkisF-mIxe.png)
 
-```c=
+```c
                        &NumberOfBytesWritten);
                 if ( ResourceW )
                 {
@@ -283,7 +283,7 @@ This makes sRDI ideal for stealthy in-memory execution, as it helps avoid detect
 
 **Conclusion**: The shellcode was converted into position-independent shellcode, and was turned into a reflective DLL loader.
 Load the DLL into IDA:
-```c=
+```c
 int RunME_0()
 {
   __int64 v0; // rdi
@@ -588,7 +588,7 @@ Let's see what's sctasks.exe is:
 ![image](https://hackmd.io/_uploads/SyHMTXQUgg.png)
 ## Decompiling the stealer
 As you can see, `sctasks.exe` has the icon of PyInstaller packed application. I'm gonna use `pyinsxtractor` to extract its .pyc files, then use `pylingual` to decompile them.
-```python=
+```python
 # Decompiled with PyLingual (https://pylingual.io)
 # Internal filename: browser_stealer.py
 # Bytecode version: 3.13.0rc3 (3571)

