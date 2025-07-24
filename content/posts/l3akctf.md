@@ -16,7 +16,7 @@ math: true
 
 > An employee's workstation began acting suspiciously; strange files appeared, and system performance dropped. Can you investigate what happened?
 
-P/s: Thanks abdelrhman322 for creating such an amazing forensics challenge, although I couldn't solve it during the competition, it still a valuable lesson and experience for me. I love your blog btw :>
+P/s: Thanks abdelrhman322 for creating such an amazing forensics challenge, although I couldn't solve it during the competition, it still a valuable lesson and experience for me. I love your blog btw :>>
 
 Let the challenge begin. At first, I was given 3 files:
 * disk.ad1 - a disk memory dump file from FTK Imager
