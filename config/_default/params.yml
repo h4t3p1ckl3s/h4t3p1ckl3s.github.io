@@ -15,7 +15,7 @@ menu:
     url: "/about"
     icon:
   - name: CV
-    url: "/CV"
+    url: "/cv"
     icon:
 
 mainSections: ["posts"]
