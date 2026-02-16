@@ -8,4 +8,4 @@ draft: false
 
 Below is my CV, written in Latex:
 
-{{< embed-pdf url="/files/test1.pdf" >}}
+{{< embed-pdf url="/files/Son_Thuong_Intern_CV.pdf" >}}
